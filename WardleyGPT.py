@@ -12,6 +12,8 @@ st.sidebar.markdown("May run out of OpenAI credits")
 
 model = "gpt-3.5-turbo"
 
+openai.api_key = st.secrets["OPENAI_API_KEY"]
+
 def get_initial_message():
     messages=[
             {"role": "system", "content": """
