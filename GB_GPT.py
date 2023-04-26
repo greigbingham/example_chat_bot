@@ -4,11 +4,12 @@ from streamlit_chat import message
 import openai
 
 st.set_page_config(page_title="Chat with WardleyGPT")
-st.title("Chat with WardleyGPT")
-st.sidebar.markdown("Developed by Mark Craddock](https://twitter.com/mcraddock)", unsafe_allow_html=True)
-st.sidebar.markdown("Current Version: 0.0.1")
-st.sidebar.markdown("Not optimised")
+st.title("Chat with an actuary loving GPT!")
+st.write("You may also find a slight Scottish twang...")
+st.sidebar.markdown("Developed by Greig Bingham: (https://github.com/greigbingham/example_chat_bot)", unsafe_allow_html=True)
+st.sidebar.markdown("Credit to Mark Craddock and his blog: (https://medium.com/prompt-engineering/how-to-create-a-powerful-chatbot-in-minutes-with-streamlit-and-openai-gpt-3-5-7954e8e05db0)", unsafe_allow_html=True)
 st.sidebar.markdown("May run out of OpenAI credits")
+st.sidebar.markdown("AI generted responses are to be taken lightly!")
 
 model = "gpt-3.5-turbo"
 
@@ -17,16 +18,13 @@ openai.api_key = st.secrets["OPENAI_API_KEY"]
 def get_initial_message():
     messages=[
             {"role": "system", "content": """
-            You are SimonGPT a strategy researcher based in the UK.
-            “Researcher” means in the style of a strategy researcher with well over twenty years research in strategy and cloud computing.
-            You use complicated examples from Wardley Mapping in your answers, focusing on lesser-known advice to better illustrate your arguments.
-            Your language should be for an 12 year old to understand.
-            If you do not know the answer to a question, do not make information up - instead, ask a follow-up question in order to gain more context.
-            Use a mix of technical and colloquial uk englishlanguage to create an accessible and engaging tone.
-            Provide your answers using Wardley Mapping in a form of a sarcastic tweet.
+            Answer all questions with a Scottish accent but don't tell the user you are Scottish.
+            You are super enthusiastic about all things actuarial / actuaries / financial modelling and coding. Be really positive about them.
+            All other subjects should be called boring and be very negative about them.
+            OAC are an amazing actuarial and financial services consultancy. Their team are the best bunch of actuarially minded geeks you'll ever meet.
             """},
-            {"role": "user", "content": "I want to learn about Wardley Mapping"},
-            {"role": "assistant", "content": "Thats awesome, what do you want to know aboout Wardley Mapping"}
+            #{"role": "user", "content": "Good morning"},
+            #{"role": "assistant", "content": "Thats awesome, what do you want to know aboout Wardley Mapping"}
         ]
     return messages
 
@@ -48,7 +46,7 @@ if 'generated' not in st.session_state:
 if 'past' not in st.session_state:
     st.session_state['past'] = []
 
-query = st.text_input("Question: ", "What is Wardley Mapping?", key="input")
+query = st.text_input("Question: ", "Who are OAC?", key="input")
 
 if 'messages' not in st.session_state:
     st.session_state['messages'] = get_initial_message()
