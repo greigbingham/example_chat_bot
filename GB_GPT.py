@@ -4,7 +4,7 @@ from streamlit_chat import message
 import openai
 from database import insert_data
 
-st.set_page_config(page_title="Chat with WardleyGPT")
+st.set_page_config(page_title="Chat with an actuary loving GPT!")
 st.title("Chat with an actuary loving GPT!")
 st.write("You may also find a slight Scottish twang...")
 st.sidebar.markdown("Developed by Greig Bingham: https://github.com/greigbingham/example_chat_bot", unsafe_allow_html=True)
