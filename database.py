@@ -9,12 +9,12 @@ DETA_KEY = st.secrets["DETA_KEY"]
 deta = Deta(DETA_KEY)
 
 # This is how to create/connect a database
-db = deta.Base("monthly_reports")
+db = deta.Base("chat_bot")
 
 
-def insert_period(period, incomes, expenses, comment):
+def insert_data(query, response):
     """Returns the report on a successful creation, otherwise raises an error"""
-    return db.put({"key": period, "incomes": incomes, "expenses": expenses, "comment": comment})
+    return db.put({"query": query, "response": response})
 
 
 def fetch_all_periods():
@@ -26,4 +26,3 @@ def fetch_all_periods():
 def get_period(period):
     """If not found, the function will return None"""
     return db.get(period)
-

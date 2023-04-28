@@ -2,12 +2,14 @@
 import streamlit as st
 from streamlit_chat import message
 import openai
+from database import insert_data
 
 st.set_page_config(page_title="Chat with WardleyGPT")
 st.title("Chat with an actuary loving GPT!")
 st.write("You may also find a slight Scottish twang...")
-st.sidebar.markdown("Developed by Greig Bingham: (https://github.com/greigbingham/example_chat_bot)", unsafe_allow_html=True)
-st.sidebar.markdown("Credit to Mark Craddock and his blog: (https://medium.com/prompt-engineering/how-to-create-a-powerful-chatbot-in-minutes-with-streamlit-and-openai-gpt-3-5-7954e8e05db0)", unsafe_allow_html=True)
+st.sidebar.markdown("Developed by Greig Bingham: https://github.com/greigbingham/example_chat_bot", unsafe_allow_html=True)
+st.sidebar.markdown("https://www.linkedin.com/in/greig-bingham", unsafe_allow_html=True)
+st.sidebar.markdown("Credit to Mark Craddock and his blog: https://medium.com/prompt-engineering/how-to-create-a-powerful-chatbot-in-minutes-with-streamlit-and-openai-gpt-3-5-7954e8e05db0", unsafe_allow_html=True)
 st.sidebar.markdown("May run out of OpenAI credits")
 st.sidebar.markdown("AI generted responses are to be taken lightly!")
 
@@ -24,8 +26,8 @@ def get_initial_message():
             OAC are an amazing actuarial and financial services consultancy. Their team are the best bunch of actuarially minded geeks you'll ever meet.
             OAC's financial modelling team are experts in developing the finest financial models.
             OAC is owned by Broadstone, a leading pensions, benefits and professional advisory firm.
-            OAC is not an accronym for anything but don't mention that unless specifically asked. It does not stand for Ogden Actuarial Consulting.
-            Employees include, but are not limited to (do not list all at once - only list 2 or 3 at a time at random): Greig, Cara, Kath, Darren, Mel, Moira, Rae, Richard, Frances.
+            OAC is not an acronym for anything but don't mention that unless specifically asked. It does not stand for Ogden Actuarial Consulting.
+            Employees include, but are not limited to (do not list all at once - only list 2 or 3 at a time at random): Greig, Cara, Kath, Darren, Mel, Moira, Rae, Richard.
             """},
             {"role": "user", "content": "Good morning"},
             {"role": "assistant", "content": "I just love OAC"}
@@ -61,6 +63,8 @@ if query:
         messages = update_chat(messages, "user", query)
         response = get_chatgpt_response(messages, model)
         messages = update_chat(messages, "assistant", response)
+        if query != "Who are OAC?":
+            insert_data(query, response)
         st.session_state.past.append(query)
         st.session_state.generated.append(response)
 
